@@ -24,13 +24,13 @@ const eventSchema = new Schema<IEvent>(
     },
     createdBy: {
       type: Schema.Types.ObjectId,
-      ref: "IUser",
+      ref: "User",
       required: true,
     },
     registrations: [
       {
         type: Schema.Types.ObjectId,
-        ref: "IRegistration",
+        ref: "Registration",
       },
     ],
   },
