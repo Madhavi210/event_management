@@ -1,14 +1,52 @@
-.container {
-    max-width: 600px;
-    margin: auto;
+.container-fliud {
+  min-height: 100vh; /* Ensures the container takes up at least the full viewport height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(238, 238, 238);
+}
+
+.card {
+  // margin-top: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out;
+
+  .card-header {
+    background-color: #8c8c8c;
+    color: #fff;
+    border-bottom: none;
+    font-size: 1.5rem;
+  }
+
+  .card-body {
     padding: 20px;
   }
-  
+
   .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 1rem;
   }
-  
+
+  .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+
+  .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+  }
+
+  .btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+  }
+
+  .btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+  }
+
   .text-danger {
-    color: red;
+    font-size: 0.875rem;
   }
-  
+}

@@ -1,5 +1,5 @@
 import { Schema, model, Document } from "mongoose";
-import { IUser } from "../interface/user.interface";
+import IUser from "../interface/user.interface";
 
 const userSchema = new Schema<IUser>(
   {
@@ -16,7 +16,7 @@ const userSchema = new Schema<IUser>(
       type: String,
       required: true,
     },
-    token: { type: String },
+    token: { type: String , default: null},
   },
   { timestamps: true }
 );

@@ -1,0 +1,45 @@
+.container-fluid {
+    margin-top: 2rem;
+    
+    .card {
+      border: none;
+      background-color: white;
+      box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+      width: 500px;
+      margin: 0 auto; /* Center the card horizontally */
+  
+      .card-header {
+        background-color: #878889;
+        color: white;
+        font-size: 1.5rem;
+      }
+  
+      .card-body {
+        .form-group {
+          margin-bottom: 1rem;
+  
+          label {
+            font-weight: 500;
+          }
+  
+          .form-control {
+            border-radius: 0.25rem;
+            &:focus {
+              box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+            }
+          }
+  
+          .text-danger {
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+          }
+        }
+  
+        .btn {
+          font-size: 1rem;
+          padding: 0.5rem;
+        }
+      }
+    }
+  }
+  

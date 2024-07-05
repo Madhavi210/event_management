@@ -1,5 +1,5 @@
 import { Schema, model, Document } from "mongoose";
-import { IUser } from "../interface/user.interface";
+import IUser  from "../interface/user.interface";
 import { User } from "./user.model";
 import { IEvent } from "../interface/event.interface";
 import { IRegistration } from "./registration.model";

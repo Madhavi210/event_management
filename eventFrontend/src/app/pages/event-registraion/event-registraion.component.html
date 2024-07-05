@@ -1,17 +1,20 @@
-<div class="container">
-    <h2>Event Registration</h2>
-    <form [formGroup]="eventRegistrationForm" (ngSubmit)="onSubmit()">
-        <div class="form-group">
+<div class="container-fliud d-flex justify-content-center align-items-center">
+    <div class="card ">
+      <h2 class="card-header text-center">Event Registration</h2>
+      <div class="card-body">
+        <form [formGroup]="eventRegistrationForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
             <label for="userId">User ID</label>
             <input type="text" id="userId" formControlName="userId" class="form-control">
             <div *ngIf="eventRegistrationForm.get('userId')!.invalid && (eventRegistrationForm.get('userId')!.dirty || eventRegistrationForm.get('userId')!.touched)" class="text-danger">
-                <!-- <div *ngIf="eventRegistrationForm.get('userId')?.errors?.required">User ID is required.</div> -->
+              <div *ngIf="eventRegistrationForm.get('userId')!.errors?.['required']">User ID is required.</div>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="eventId">Event ID</label>
-            <input type="text" id="eventId" formControlName="eventId" class="form-control" [disabled]="true">
-        </div>
-        <button type="submit" [disabled]="eventRegistrationForm.invalid" class="btn btn-primary">Register</button>
-    </form>
-</div>
+          </div>
+      
+          <button type="submit" [disabled]="eventRegistrationForm.invalid" class="m-1 btn btn-primary">Register</button>
+          <button (click)="goBackToEvent()" class="btn btn-secondary m-1">Back to Event</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  

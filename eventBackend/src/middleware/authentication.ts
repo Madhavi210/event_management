@@ -1,33 +1,35 @@
-// import { SECRET_KEY } from "../config/config";
-// import TokenPayload from "../interface/user.interface";
-// import jwt from "jsonwebtoken";
-// import "../types/typeExtension";
-// import { Request, Response, NextFunction } from "express";
-// import User from "../models/user.model";
+import TokenPayload from "../interface/user.interface";
+import { SECRET_KEY } from "../config/config";
+import jwt from "jsonwebtoken";
+import "../types/typeExtension";
+import { Request, Response, NextFunction } from "express";
+import {User} from "../model/user.model";
 
-// export default class Authentication {
-//   public static async authUser(
-//     req: Request,
-//     res: Response,
-//     next: NextFunction
-//   ): Promise<void> {
-//     try {
-//     //   console.log(req.headers);
+export default class Authentication {
+  public static async authUser(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+    //   console.log(req.headers);
 
-//       const token = req.header("Authorization")?.split(" ")[1];
-//       if (!token) {
-//         throw new Error("No token, authorization denied");
-//       }
-//       if (!SECRET_KEY) {
-//         throw new Error("SECRET_KEY is not defined");
-//       }
-//       const decode = (await jwt.verify(token, SECRET_KEY)) as TokenPayload;
-//       req.id = decode.id;
-//       next();
-//     } catch (error: any) {
-//       console.error(error);
-//     }
-//   }
+      const token = req.header("Authorization")?.split(" ")[1];
+      if (!token) {
+        throw new Error("No token, authorization denied");
+      }
+      if (!SECRET_KEY) {
+        throw new Error("SECRET_KEY is not defined");
+      }
+      const decode = (await jwt.verify(token, SECRET_KEY)) as TokenPayload ;
+    //   console.log(decode);
+      
+      req.id = decode.id;
+      next();
+    } catch (error: any) {
+      console.error(error);
+    }
+  }
 
 //   public static async authAdmin(
 //     req: Request,
@@ -47,4 +49,5 @@
 //     } catch (error: any) {
 //       console.error(error);
 //     }
-//   }
+
+  }

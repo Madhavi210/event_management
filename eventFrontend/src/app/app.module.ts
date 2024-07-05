@@ -16,6 +16,7 @@ import { EventDetailsComponent } from './pages/event-details/event-details.compo
 import { CreateEventComponent } from './pages/create-event/create-event.component';
 import { EventRegistraionComponent } from './pages/event-registraion/event-registraion.component';
 import { NavbarComponent } from './layouts/navbar/navbar.component';
+import { FooterComponent } from './layouts/footer/footer.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { NavbarComponent } from './layouts/navbar/navbar.component';
     EventDetailsComponent,
     CreateEventComponent,
     EventRegistraionComponent,
-    NavbarComponent
+    NavbarComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -37,8 +39,8 @@ import { NavbarComponent } from './layouts/navbar/navbar.component';
     ReactiveFormsModule,
   ],
   providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     { provide: HTTP_INTERCEPTORS, useClass: ErrorHandlerInterceptor, multi: true },
-    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })

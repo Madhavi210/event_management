@@ -39,6 +39,9 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
             case 404:
               errorMessage = 'Not found. The requested resource was not found.';
               break;
+            case 409:
+              errorMessage = 'User already exists. Please use a different email.';
+              break;
             case 500:
               errorMessage = 'Internal server error. Please try again later.';
               break;

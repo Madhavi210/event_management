@@ -15,6 +15,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token = localStorage.getItem('token');
+    console.log('Token:', token); // Debugging
     let cloneReq = request;
     if(token){
       cloneReq =  request.clone({
@@ -23,7 +24,11 @@ export class AuthInterceptor implements HttpInterceptor {
         }
       });
     }
-    return next.handle(cloneReq);
+    return next.handle(cloneReq).pipe(
+      catchError((error) => {
+        console.error('Error in interceptor:', error);
+        return throwError(error);
+      })
+    );
   }
 }
-

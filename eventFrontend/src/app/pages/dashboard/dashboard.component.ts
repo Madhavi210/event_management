@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EventsService } from '../../core/services/events/events.service';
+import { LoginService } from 'src/app/core/services/login/login.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,10 +9,12 @@ import { EventsService } from '../../core/services/events/events.service';
 })
 export class DashboardComponent implements OnInit {
   events: any[] = [];  // Define an array to hold events
+  isLoggedIn: boolean = false;
 
-  constructor(private eventService: EventsService) { }
+  constructor(private eventService: EventsService, private loginService:LoginService) { }
 
   ngOnInit(): void {
+    this.isLoggedIn = this.loginService.isLoggedIn();
     this.fetchEvents();
   }
 
@@ -20,7 +23,6 @@ export class DashboardComponent implements OnInit {
       (events: any[]) => {
         this.events = events;
         console.log(events);
-        
       },
       (error) => {
         console.error('Error fetching events:', error);

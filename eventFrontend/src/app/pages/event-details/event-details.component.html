@@ -1,41 +1,49 @@
 <div class="container">
-    <h2>Event Details</h2>
-    <div *ngIf="event">
+  <h2 class="m-3 text-center">Event Details</h2>
+  
+  <div class="d-flex justify-content-center event-detail-box">
+    <div *ngIf="event" class="">
       <p><strong>Title:</strong> {{ event.title }}</p>
       <p><strong>Description:</strong> {{ event.description }}</p>
       <p><strong>Date:</strong> {{ event.date | date }}</p>
       <p><strong>Location:</strong> {{ event.location }}</p>
     </div>
-  
-    <h3>Registered Users</h3>
-    <div class="table-responsive">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Register ID</th>
-            <th>User ID</th>
-            <th>Event ID</th>
-            <th>Registered At</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let registration of registeredUsers">
-            <td>{{ registration._id }}</td>
-            <td>{{ registration.userId }}</td>
-            <td>{{ registration.eventId }}</td>
-            <td>{{ registration.registeredAt | date:'medium' }}</td>
-            <td>
-              <button class="btn btn-sm btn-danger" (click)="deleteRegistration(registration._id)">Delete</button>
-            </td>
-          </tr>
-          <tr *ngIf="registeredUsers.length === 0">
-            <td colspan="5" class="text-center">No users registered yet.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  
-    <button class="btn btn-primary mt-3" (click)="addUserForEvent()">Add Users</button>
   </div>
-  
+
+  <h3 class="m-3 fs-5 text-center">Registered Users</h3>
+
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th>Register ID</th>
+          <th>User ID</th>
+          <th>Event ID</th>
+          <th>Registered At</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let registration of registeredUsers">
+          <td>{{ registration._id }}</td>
+          <td>{{ registration.userId }}</td>
+          <td>{{ registration.eventId }}</td>
+          <td>{{ registration.registeredAt | date:'medium' }}</td>
+          <td>
+            <button class="btn btn-sm btn-danger" (click)="deleteRegistration(registration._id)">Delete</button>
+          </td>
+        </tr>
+        <tr *ngIf="registeredUsers.length === 0">
+          <td colspan="5" class="text-center">No users registered yet.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="text-center mt-4 mb-3">
+    <button class="btn btn-primary mx-1" (click)="addUserForEvent()">Add Users</button>
+    <button class="btn btn-secondary mx-1" routerLink="/dashboard">Back to Dashboard</button>
+    <button class="btn btn-secondary mx-1" (click)="editEvent()">Edit Event</button>
+    <button class="btn btn-danger mx-1" (click)="deleteEvent()">Delete Event</button>
+  </div>
+</div>

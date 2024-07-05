@@ -3,7 +3,7 @@ import mongoose, { ClientSession } from 'mongoose';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { User } from '../model/user.model';
-import { IUser } from '../interface/user.interface';
+import IUser  from '../interface/user.interface';
 import AppError from '../utils/errorHanler';
 import StatusConstants from '../constant/statusConstant';
 import { SECRET_KEY } from '../config/config';

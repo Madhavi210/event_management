@@ -1,56 +1,60 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RegistrationService } from 'src/app/core/services/registration/registration.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-event-registraion',
   templateUrl: './event-registraion.component.html',
   styleUrls: ['./event-registraion.component.scss']
 })
-export class EventRegistraionComponent {
+export class EventRegistraionComponent implements OnInit {
 
   eventRegistrationForm!: FormGroup;
-  eventId:any;
+  eventId: string | null = null;
 
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private registrationService: RegistrationService
-  ) { }
-
-  ngOnInit(): void {
-    this.createEventRegistrationForm();
-    this.eventId = this.route.snapshot.paramMap.get('id')
-
+    private registrationService: RegistrationService,
+    private router:Router
+  ) { 
+    this.eventRegistrationForm = this.fb.group({
+      userId: ['', Validators.required]
+    });
   }
 
-  createEventRegistrationForm(): void {
-    this.eventRegistrationForm = this.fb.group({
-      userId: ['', Validators.required],
-      eventId: [this.route.snapshot.params['id'], Validators.required],
-    });
+  ngOnInit(): void {
+    this.eventId = this.route.snapshot.paramMap.get('id');
   }
 
   onSubmit(): void {
     if (this.eventRegistrationForm.valid) {
-      const { userId, eventId } = this.eventRegistrationForm.value;
-      this.registrationService.registerUserForEvent(eventId, userId).subscribe(
-        (result) => {
-          // Handle success
-          console.log('User registered successfully:', result);
-          // Optionally reset the form
-          this.eventRegistrationForm.reset();
-        },
-        (error) => {
-          // Handle error
-          console.error('Error registering user:', error);
-        }
-      );
+      const userId = this.eventRegistrationForm.value.userId;
+      if (this.eventId) {
+        this.registrationService.registerUserForEvent(this.eventId, userId).subscribe(
+          (result) => {
+            Swal.fire("success",'User registered successfully',"success");
+            this.eventRegistrationForm.reset();
+          },
+          (error) => {
+            console.error('Error registering user:', error);
+          }
+        );
+      } else {
+        console.error('Event ID is missing');
+      }
+    } else {
+      this.eventRegistrationForm.markAllAsTouched();
     }
   }
 
-  // get f() {
-  //   return this.eventRegistrationForm.controls;
-  // }
+  goBackToEvent(): void {
+    if (this.eventId) {
+      this.router.navigate(['/events', this.eventId]);
+    } else {
+      console.error('Event ID is missing');
+    }
+  }
 }

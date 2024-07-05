@@ -26,9 +26,9 @@ export class EventDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.eventId = this.route.snapshot.paramMap.get('id');
     this.getEventDetails();
     this.getRegisteredUsers();
-    this.eventId = this.route.snapshot.paramMap.get('id');
   }
 
   getEventDetails(): void {
@@ -37,6 +37,7 @@ export class EventDetailsComponent implements OnInit {
       this.eventService.getEventById(this.eventId).subscribe(
         (event: IEvent) => {
           this.event = event;
+          console.log(event, "event detail");
         },
         (error) => {
           console.error('Error fetching event details:', error);
@@ -46,13 +47,11 @@ export class EventDetailsComponent implements OnInit {
   }
 
   getRegisteredUsers(): void {
-    // const eventId = this.route.snapshot.paramMap.get('id');
     if (this.eventId) {
       this.registrationService.getAllRegistrationsForEvent(this.eventId).subscribe(
         (registrations: IRegistration[]) => { // Corrected to IRegistration[]
           this.registeredUsers = registrations; // Assign registrations to registeredUsers
           console.log(this.registeredUsers, "register user", this.registeredUsers[0]._id);
-          
         },
         (error) => {
           console.error('Error fetching registered users:', error);
@@ -62,20 +61,43 @@ export class EventDetailsComponent implements OnInit {
   }
 
   deleteRegistration(registerId:any):void {
-    this.registrationService.deleteRegistration(registerId).subscribe(
-      response => {
-        Swal.fire("success", "registred user deleted successfully", "success")
-      }, error => {
-        console.error(error);
-      }
-    )
+    if(confirm(`Are you sure to detele ${registerId}`)){
+      this.registrationService.deleteRegistration(registerId).subscribe(
+        response => {
+          Swal.fire("success", "registred user deleted successfully", "success")
+          this.registeredUsers = this.registeredUsers.filter(user => user._id !== registerId);
+        }, error => {
+          console.error(error);
+        }
+      );
+    }
   }
 
   addUserForEvent():void {
-    console.log(this.eventId);
-    
     if(this.eventId){
       this.router.navigate(['event-registration', this.eventId]);
+    }
+  }
+
+  deleteEvent(): void {
+    if(confirm(`Are you sure to delete this event ${this.eventId}`)){
+      if (this.eventId) {
+        this.eventService.deleteEvent(this.eventId).subscribe(
+          response => {
+            Swal.fire("success", "Event deleted successfully", "success");
+            this.router.navigate(['/dashboard']); // Redirect to dashboard after deletion
+          },
+          error => {
+            console.error('Error deleting event:', error);
+          }
+        );
+      }
+    }
+  }
+
+  editEvent():void {
+    if (this.eventId) {
+      this.router.navigate(['edit-event', this.eventId]);
     }
   }
 
